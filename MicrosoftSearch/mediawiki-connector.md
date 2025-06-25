@@ -6,7 +6,7 @@ author: mecampos
 manager: umas
 audience: Admin
 ms.audience: Admin
-ms.topic: article
+ms.topic: install-set-up-deploy
 ms.service: mssearch
 ms.localizationpriority: medium
 search.appverid:
@@ -26,6 +26,9 @@ This article is for anyone who configures, runs, and monitors a MediaWiki Micros
 <!---## Before you get started-->
 
 <!---Insert "Before you get started" recommendations for this data source-->
+
+> [!NOTE]
+> The wiki should be hosted under subdirectory/wiki.
 
 ## Step 1: Add a connector in the Microsoft 365 admin center
 

@@ -1,29 +1,26 @@
 --- 
-title: "Stack Overflow Connector for Microsoft Search and Copilot" 
+title: "Stack Overflow Microsoft 365 Copilot connector" 
 ms.author: rerabo
 author: vivg
-manager: igala
+manager: ereza
 audience: Admin
 ms.audience: Admin 
-ms.topic: article 
+ms.topic: install-set-up-deploy
 ms.service: mssearch 
 ms.localizationpriority: medium 
 search.appverid: 
 - BFB160 
 - MET150 
 - MOE150 
-description: "Set up the Stack Overflow Microsoft Graph connector for Microsoft Search and Microsoft 365 Copilot" 
-ms.date: 11/25/2024
+description: "Set up the Stack Overflow Microsoft 365 Copilot connector." 
+ms.date: 03/19/2025
 ---
 
-# Stack Overflow Microsoft Graph connector
+# Stack Overflow Microsoft 365 Copilot connector
 
-The Stack Overflow Graph connector allows your organization to index questions and answers from Stack Overflow. After you configure the connector, end users can search for these posts from Stack Overflow in Microsoft Copilot and from any Microsoft Search client. 
+The Stack Overflow Copilot connector allows your organization to index questions and answers from Stack Overflow. After you configure the connector, end users can search for these posts from Stack Overflow in Microsoft Copilot and from any Microsoft Search client. 
 
-This article is for Microsoft 365 administrators or anyone who configures, runs, and monitors a Stack Overflow Graph connector. 
-
->[!NOTE]
->The Stack Overflow Graph connector is in preview. If you wish to get early access to try it, sign up using [this form](https://forms.office.com/r/JniPmK5bzm).
+This article is for Microsoft 365 administrators or anyone who configures, runs, and monitors a Stack Overflow Copilot connector. 
 
 ## Capabilities
 - Index Stack Overflow questions and answers.
@@ -32,7 +29,7 @@ This article is for Microsoft 365 administrators or anyone who configures, runs,
    - What are the differences between using REST and GraphQL for our API services?
    - How can we improve the load time of our customer-facing web applications?
 - Use [Semantic search in Copilot](semantic-index-for-copilot.md) to enable users to find relevant content based on keywords, personal preferences, and social connections.
-- The Stack Overflow Graph Connector supports Stack Overflow for Teams **Business** and **Enterprise**.
+- The Stack Overflow Copilot connector supports Stack Overflow for Teams **Business** and **Enterprise**.
 
 ## Limitations
 - The connector doesn't support [private teams](https://stackoverflowteams.help/articles/9736637-enable-and-set-up-private-teams) in Stack Overflow for Teams **Enterprise**.
@@ -40,7 +37,7 @@ This article is for Microsoft 365 administrators or anyone who configures, runs,
 ## Prerequisites
 - You must be a search admin for your organization's Microsoft 365 tenant.
 - To create a new connection, use your organization's Stack Overflow Instance URL.
-   - For Stack Overflow for Teams **Enterprise**, the instance URL is the home page URL, typically `https://stackoverflow.<company_name>.com`. 
+   - For Stack Overflow for Teams **Enterprise**, the instance URL is the home page URL, typically `https://<company_name>.stackenterprise.co`. 
    - For Stack Overflow for Teams **Business**, use the API URL, which usually looks like `https://api.stackoverflowteams.com/v3/teams/<company_name>`.
      
 ## Get Started
@@ -49,12 +46,12 @@ This article is for Microsoft 365 administrators or anyone who configures, runs,
 A display name is used to identify each citation in Copilot, helping users easily recognize the associated file or item. Display name also signifies trusted content. Display name is also used as a content source filter. A default value is present for this field, but you can customize it to a name that users in your organization recognize.
 
 ### 2. Stack Overflow URL
-Use your organization's Stack Overflow Instance URL. For Stack Overflow for Teams **Enterprise**, this will be the home page URL, typically `https://stackoverflow.<company_name>.com`. For Stack Overflow for Teams **Business**, use the API URL, which usually looks like `https://api.stackoverflowteams.com/v3/teams/<company_name>`.
+Use your organization's Stack Overflow Instance URL. For Stack Overflow for Teams **Enterprise**, this will be the home page URL, typically `https://<company_name>.stackenterprise.co`. For Stack Overflow for Teams **Business**, use the API URL, which usually looks like `https://api.stackoverflowteams.com/v3/teams/<company_name>`.
 
 ### 3. Authentication Type
 To authenticate and sync content from Stack Overflow, choose one of the two supported methods:<br>
    - If you use Stack Overflow for Teams **Enterprise**, select OAuth. To learn more about authentication and authorization in Stack Overflow for Teams **Enterprise**, [click here](https://stackoverflowteams.help/articles/8043418-stack-overflow-for-teams-enterprise-api-v3#authentication-and-authorization).<br>
-   - If you use Stack Overflow for Teams **Business**, select Basic authentication. To learn more about Stack Overflow for Teams **Business**, [click here](https://stackoverflowteams.help/articles/7913768-stack-overflow-for-teams-api-v3#authentication-and-authorization).
+   - If you use Stack Overflow for Teams **Business**, select Basic authentication. To learn more about authentication and authorization in Stack Overflow for Teams **Business**, [click here](https://stackoverflowteams.help/articles/7913768-stack-overflow-for-teams-api-v3#authentication-and-authorization).
  
 ### 4. Roll out to limited audience
 Deploy this connection to a limited user base if you want to validate it in Copilot and other Search surfaces before expanding the rollout to a broader audience. To know more about limited rollout, see [staged rollout](staged-rollout-for-graph-connectors.md).
@@ -69,7 +66,7 @@ Custom setup is for admins who want to edit the default values for settings. Onc
 
 **Access Permissions**
 
-Currently, questions and answers from your organization’s Stack Overflow instance are indexed. All the data indexed using the Stack Overflow connector is visible to all Microsoft 365 users in your tenant, accessible through Microsoft Search or Copilot.
+Currently, questions and answers from your organization’s Stack Overflow instance are indexed. All the data indexed using the Stack Overflow Copilot connector is visible to all Microsoft 365 users in your tenant, accessible through Microsoft Search or Copilot.
  
 ### Content
 
@@ -79,9 +76,9 @@ Here, you can add or remove available properties from your Stack Overflow data s
 
 **Source Property** | **Semantic Label** |**Description**| **Schema**
 --- | ---- | --- | ---
+BestAnswerBody | | Best answer content (accepted by the question author as the most helpful or accurate) | Retrieve, Search
 BestAnswerAuthorId |  | ID of the best answer | Retrieve
 BestAnswerAuthorName | | Name of the author who provided the best answer | Retrieve, Search
-BestAnswerBody | | Best answer content | Retrieve, Search
 BestAnswerCreatedAt | | Date when the best answer was created | Query, Refine, Retrieve
 CreationDate | Created date time | Date when the post was created (question was asked) | Query, Refine, Retrieve
 LastActivityDate | Last modified date time | Date when the post was last modified | Query, Refine, Retrieve
@@ -96,9 +93,9 @@ Title | Title | Post title | Query, Retrieve, Search
 
 ### Sync
 
-The refresh interval determines how often your data is synced between the data source and the Graph connector index. There are two types of refresh intervals - full crawl and incremental crawl. For more information, see [refresh settings](configure-connector.md#guidelines-for-sync-settings).
+The refresh interval determines how often your data is synced between the data source and the Copilot connector index. There are two types of refresh intervals - full crawl and incremental crawl. For more information, see [refresh settings](configure-connector.md#guidelines-for-sync-settings).
 
 ## Troubleshooting
-After publishing your connection, you can review the status under the **Data Sources** tab in the [admin center](https://admin.microsoft.com). To learn how to make updates and deletions, see [Manage your connector](manage-connector.md). 
+After publishing your connection, you can review the status under **Data Sources** in the [admin center](https://admin.microsoft.com). To learn how to make updates and deletions, see [Manage your connector](manage-connector.md). 
 
 If you have issues or want to provide feedback, contact [Microsoft Graph | Support](https://developer.microsoft.com/en-us/graph/support).
